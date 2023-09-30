@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Polygon, Marker } from "react-native-maps";
 import * as Location from "expo-get-location";
@@ -26,6 +26,23 @@ function MapScreen({ navigation }) {
   });
 
   const { addActivityLogEntry } = useGeofenceActivity();
+
+  const [isEnterModalVisible, setEnterModalVisible] = useState(false);
+  const [isExitModalVisible, setExitModalVisible] = useState(false);
+
+  const showEnterModal = () => {
+    setEnterModalVisible(true);
+    setTimeout(() => {
+      setEnterModalVisible(false);
+    }, 700);
+  };
+
+  const showExitModal = () => {
+    setExitModalVisible(true);
+    setTimeout(() => {
+      setExitModalVisible(false);
+    }, 700);
+  };
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -79,6 +96,7 @@ function MapScreen({ navigation }) {
             status: "enter",
             time: enterTime,
           });
+          showEnterModal();
         } else {
           const exitTime = new Date();
           console.log(`Point exited geofence ${index + 1} at ${exitTime}`);
@@ -87,6 +105,7 @@ function MapScreen({ navigation }) {
             status: "exit",
             time: exitTime,
           });
+          showExitModal();
         }
         previousStates[index] = isInsidePolygon;
         setPreviousStates([...previousStates]);
@@ -127,6 +146,32 @@ function MapScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isEnterModalVisible}
+        onRequestClose={() => {
+          setEnterModalVisible(false);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>{t("Entered")}</Text>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isExitModalVisible}
+        onRequestClose={() => {
+          setExitModalVisible(false);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>{t("Exited")}</Text>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -160,6 +205,19 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+  },
+  modalText: {
+    fontSize: 24,
+    color: "white",
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: "#333",
   },
 });
 

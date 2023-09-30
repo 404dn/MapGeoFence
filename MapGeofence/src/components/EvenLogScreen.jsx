@@ -1,4 +1,6 @@
-import React from "react";
+// EventLogScreen.js
+
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +15,12 @@ import { useTranslation } from "react-i18next";
 function EventLogScreen({ navigation }) {
   const { activityLog } = useGeofenceActivity();
   const { t } = useTranslation();
+  const [sortedLog, setSortedLog] = useState(activityLog);
+
+  const sortLogByDate = () => {
+    const sorted = [...activityLog].sort((a, b) => b.time - a.time);
+    setSortedLog(sorted);
+  };
 
   return (
     <View style={styles.container}>
@@ -25,21 +33,21 @@ function EventLogScreen({ navigation }) {
             <Text style={styles.buttonText}>{t("Back")}</Text>
           </TouchableOpacity>
           <Text style={styles.header}>{t("Geofence Events Log")}</Text>
+          <TouchableOpacity style={styles.sortButton} onPress={sortLogByDate}>
+            <Text style={styles.buttonText}>{t("Sort")}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.flatlistView}>
           <FlatList
             style={styles.list}
-            data={activityLog}
+            data={sortedLog}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <View style={styles.logEntry}>
                 <Text>
-                  {t(" Geofence ")}
-                  {item.index}
+                  {t("Geofence")} {item.index}
                 </Text>
-
                 <Text>{item.status === "enter" ? "Entered" : "Exited"}</Text>
-
                 <Text>Time: {item.time.toString()}</Text>
               </View>
             )}
@@ -59,6 +67,7 @@ const styles = StyleSheet.create({
   },
   safearea: {
     flex: 1,
+    alignContent: "center",
   },
   list: {
     marginTop: 20,
@@ -66,11 +75,11 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     top: 20,
-    left: 5,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 15,
     textAlign: "center",
   },
   backButton: {
@@ -79,19 +88,27 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "#ACACAC",
     borderWidth: 2,
-    width: "20%",
+    width: "15%",
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
-    marginLeft: 10, // Add some left margin to separate the button and text
+    marginLeft: 10,
   },
   logEntry: {
     marginBottom: 8,
     borderColor: "#ccc",
     borderWidth: 1,
     padding: 8,
+  },
+  sortButton: {
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "white",
+    borderColor: "#ACACAC",
+    borderWidth: 2,
+    marginLeft: 10,
   },
 });
 

@@ -8,10 +8,11 @@
   "Settings": "إعدادات",
   "Back": "الرجوع",
   "Geofence Events Log": "سجل أحداث السياج الجغرافي",
-  "Enter": "يدخل",
-  "Entered": "دخل",
-  "Exited": "خرج",
+  "Enter": "يدخل السياج الجغزافي",
+  "Entered": "يدخل السياج الجغزافي",
+  "Exited": "يخرج السياج الجغزافي",
   "Reset Geofences": "إعادة ضبط السياج الجغرافي",
   "Stop Drawing": "إيقاف الرسم",
-  "Start Drawing": "ابدأ بالرسم"
+  "Start Drawing": "ابدأ بالرسم",
+  "Sort": "رتب"
 }
