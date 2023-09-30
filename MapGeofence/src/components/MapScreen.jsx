@@ -6,6 +6,7 @@ import * as Location from "expo-get-location";
 
 import { useGeofences } from "../services/GeofenceContext";
 import { pointInPolygon } from "../services/GeofenceCheck";
+import { useTranslation } from "react-i18next";
 
 import {
   GeofenceActivityProvider,
@@ -13,6 +14,7 @@ import {
 } from "../services/GeoFenceActivityContext";
 
 function MapScreen({ navigation }) {
+  const { t } = useTranslation();
   const { geofences, addGeofence, resetGeofences } = useGeofences();
   const [currentUserLocation, setCurrentUserLocation] = useState({});
   const [previousStates, setPreviousStates] = useState([]);
@@ -121,7 +123,7 @@ function MapScreen({ navigation }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>{t("Back")}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

@@ -5,5 +5,13 @@
   "Map": "خريطه",
   "Geofence": "سياج جغرافي",
   "Report": "تقرير",
-  "Settings": "إعدادات"
+  "Settings": "إعدادات",
+  "Back": "الرجوع",
+  "Geofence Events Log": "سجل أحداث السياج الجغرافي",
+  "Enter": "يدخل",
+  "Entered": "دخل",
+  "Exited": "خرج",
+  "Reset Geofences": "إعادة ضبط السياج الجغرافي",
+  "Stop Drawing": "إيقاف الرسم",
+  "Start Drawing": "ابدأ بالرسم"
 }

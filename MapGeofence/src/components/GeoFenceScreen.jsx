@@ -4,8 +4,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Polygon, Marker } from "react-native-maps";
 import * as Location from "expo-get-location";
 import { useGeofences } from "../services/GeofenceContext";
+import { useTranslation } from "react-i18next";
 
 function GeofenceScreen({ navigation }) {
+  const { t } = useTranslation();
   const { geofences, addGeofence, resetGeofences } = useGeofences();
   const [currentUserLocation, setCurrentUserLocation] = useState(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -103,7 +105,7 @@ function GeofenceScreen({ navigation }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>{t("Back")}</Text>
           </TouchableOpacity>
           <View style={styles.btnView}>
             <TouchableOpacity
@@ -111,14 +113,14 @@ function GeofenceScreen({ navigation }) {
               onPress={toggleDrawing}
             >
               <Text style={styles.buttonText}>
-                {isDrawing ? "Stop Drawing" : "Start Drawing"}
+                {isDrawing ? t("Stop Drawing") : t("Start Drawing")}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.customButton}
               onPress={resetGeofences}
             >
-              <Text style={styles.buttonText}>Reset Geofences</Text>
+              <Text style={styles.buttonText}>{t("Reset Geofences")}</Text>
             </TouchableOpacity>
           </View>
         </View>
