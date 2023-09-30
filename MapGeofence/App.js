@@ -20,7 +20,7 @@ export default function App() {
         <GeofenceProvider>
           <GeofenceActivityProvider>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-              {/* <Stack.Screen name="LogIn" component={LogInScreen} /> */}
+              <Stack.Screen name="LogIn" component={LogInScreen} />
               <Stack.Screen name="Menu" component={MenuScreen} />
               <Stack.Screen name="Geofence" component={GeofenceScreen} />
               <Stack.Screen name="MapScreen" component={MapScreen} />
