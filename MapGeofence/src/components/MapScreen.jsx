@@ -19,8 +19,8 @@ function MapScreen({ navigation }) {
   const [currentUserLocation, setCurrentUserLocation] = useState({});
   const [previousStates, setPreviousStates] = useState([]);
   const [initialRegion, setInitialRegion] = useState({
-    latitude: 25.20549941659796,
-    longitude: 55.38771399646464,
+    latitude: 37.334346,
+    longitude: -122.04156,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });

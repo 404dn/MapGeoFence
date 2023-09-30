@@ -12,8 +12,8 @@ function GeofenceScreen({ navigation }) {
   const [currentUserLocation, setCurrentUserLocation] = useState(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [initialRegion, setInitialRegion] = useState({
-    latitude: 25.20549941659796, // Default initial latitude
-    longitude: 55.38771399646464, // Default initial longitude
+    latitude: 37.334346,
+    longitude: -122.04156,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });

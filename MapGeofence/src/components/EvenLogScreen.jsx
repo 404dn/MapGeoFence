@@ -37,9 +37,9 @@ function EventLogScreen({ navigation }) {
                   {t(" Geofence ")}
                   {item.index}
                 </Text>
-                <Text>
-                  {item.status === t("Enter") ? t("Entered") : t("Exited")}
-                </Text>
+
+                <Text>{item.status === "enter" ? "Entered" : "Exited"}</Text>
+
                 <Text>Time: {item.time.toString()}</Text>
               </View>
             )}
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     top: 20,
-    left: 20,
+    left: 5,
   },
   buttonText: {
     fontSize: 20,
