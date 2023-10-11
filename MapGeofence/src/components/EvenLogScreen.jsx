@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     top: 20,
   },
   buttonText: {
-    fontSize: 15,
+    fontSize: 13,
     textAlign: "center",
   },
   backButton: {
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     width: "15%",
   },
   header: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
     marginLeft: 10,
