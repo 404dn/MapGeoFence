@@ -16,6 +16,7 @@ import {
 function MapScreen({ navigation }) {
   const { t } = useTranslation();
   const { geofences, addGeofence, resetGeofences } = useGeofences();
+  const [index, setIndex] = useState();
   const [currentUserLocation, setCurrentUserLocation] = useState({});
   const [previousStates, setPreviousStates] = useState([]);
   const [initialRegion, setInitialRegion] = useState({
@@ -32,6 +33,7 @@ function MapScreen({ navigation }) {
 
   const showEnterModal = () => {
     setEnterModalVisible(true);
+
     setTimeout(() => {
       setEnterModalVisible(false);
     }, 700);
@@ -96,6 +98,7 @@ function MapScreen({ navigation }) {
             status: "enter",
             time: enterTime,
           });
+          setIndex(index);
           showEnterModal();
         } else {
           const exitTime = new Date();
@@ -156,7 +159,9 @@ function MapScreen({ navigation }) {
         }}
       >
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>{t("Entered")}</Text>
+          <Text style={styles.modalText}>
+            {t("Entered")} {index}
+          </Text>
         </View>
       </Modal>
 
@@ -169,7 +174,9 @@ function MapScreen({ navigation }) {
         }}
       >
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>{t("Exited")}</Text>
+          <Text style={styles.modalText}>
+            {t("Exited")} {index}
+          </Text>
         </View>
       </Modal>
     </View>

@@ -1,5 +1,4 @@
 function pointInPolygon(point, polygon) {
-  // Implementation of the point-in-polygon algorithm (same as shown in previous response)
   let isInside = false;
   const x = point.latitude;
   const y = point.longitude;
