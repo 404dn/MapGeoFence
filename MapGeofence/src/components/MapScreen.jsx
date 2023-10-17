@@ -54,31 +54,32 @@ function MapScreen({ navigation }) {
         return;
       }
 
-      const fetchLocation = async () => {
-        try {
-          const currentLocation = await Location.getCurrentPositionAsync();
-
-          setCurrentUserLocation({
-            latitude: currentLocation.coords.latitude,
-            longitude: currentLocation.coords.longitude,
-          });
-          const userRegion = {
-            latitude: currentLocation.coords.latitude,
-            longitude: currentLocation.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          };
-          setInitialRegion(userRegion);
-        } catch (error) {
-          console.error("Error fetching location:", error);
+      const locationSubscription = Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.BestForNavigation,
+          timeInterval: 50,
+          distanceInterval: 1,
+        },
+        (location) => {
+          try {
+            setCurrentUserLocation({
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            });
+            const userRegion = {
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            };
+          } catch (error) {
+            console.error("Error fetching location:", error);
+          }
         }
-      };
-      fetchLocation();
-
-      const locationInterval = setInterval(fetchLocation, 2000);
+      );
 
       return () => {
-        clearInterval(locationInterval);
+        locationSubscription.remove();
       };
     };
     getPermissions();
@@ -115,6 +116,14 @@ function MapScreen({ navigation }) {
       }
     });
   }, [currentUserLocation, geofences, previousStates, addActivityLogEntry]);
+
+  useEffect(() => {
+    setInitialRegion((prevRegion) => ({
+      ...prevRegion,
+      latitude: currentUserLocation.latitude,
+      longitude: currentUserLocation.longitude,
+    }));
+  }, [currentUserLocation]);
 
   return (
     <View style={styles.container}>

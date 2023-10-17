@@ -27,19 +27,34 @@ function GeofenceScreen({ navigation }) {
         return;
       }
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
+      const locationSubscription = Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.BestForNavigation,
+          timeInterval: 50,
+          distanceInterval: 1,
+        },
+        (location) => {
+          try {
+            setCurrentUserLocation({
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            });
+            const userRegion = {
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            };
+            setInitialRegion(userRegion);
+          } catch (error) {
+            console.error("Error fetching location:", error);
+          }
+        }
+      );
 
-      setCurrentUserLocation({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-      });
-      const userRegion = {
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+      return () => {
+        locationSubscription.remove();
       };
-      setInitialRegion(userRegion);
     };
     getPermissions();
   }, []);
