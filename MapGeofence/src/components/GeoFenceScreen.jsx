@@ -35,10 +35,6 @@ function GeofenceScreen({ navigation }) {
         },
         (location) => {
           try {
-            setCurrentUserLocation({
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            });
             const userRegion = {
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
@@ -46,6 +42,10 @@ function GeofenceScreen({ navigation }) {
               longitudeDelta: 0.0421,
             };
             setInitialRegion(userRegion);
+            setCurrentUserLocation({
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            });
           } catch (error) {
             console.error("Error fetching location:", error);
           }
